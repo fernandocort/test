@@ -9,6 +9,8 @@ Carpeta con entregables de prueba tecnica
   * admin
   
 2. Proyecto Movies que contiene lo siguiente: 
-  <li> Rest WS para invocar api ODMb </li>
-  <li> Rest WS para obtener Token JWT por medio del username, por tanto consume al proyecto del punto 1. </li>
-  <li> CRUD Rest WS para consultar en H2 database las peliculas que ya fueron vistas </li>
+  * Rest WS para invocar api ODMb 
+  * Rest WS para obtener Token JWT por medio del username, por tanto consume al proyecto del punto 1. 
+  * CRUD Rest WS para consultar en H2 database las peliculas que ya fueron vistas 
+  
+ 3. Carpeta con la collection de Clientes Postman
