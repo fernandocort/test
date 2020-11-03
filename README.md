@@ -2,7 +2,8 @@
 Carpeta con entregables de prueba tecnica
 
 
-# En este repositorio se encunentran los 2 codigos fuentes necesarios para evaluar la practica
+En este repositorio se encuentran los 2 codigos fuentes necesarios para evaluar la practica
+
 1. Proyecto users-service que permite consultar los usuarios registrados en H2 database
   Los usuarios registrados son: 
   * fernando
