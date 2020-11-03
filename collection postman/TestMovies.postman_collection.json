@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "fcaffd04-843d-4739-a1b8-fc7ff34f68d4",
+		"name": "TestMovies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test url api Omdbapi",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.omdbapi.com/?t=tarzan&apikey=fc4a9f79\n",
+					"protocol": "http",
+					"host": [
+						"www",
+						"omdbapi",
+						"com"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "t",
+							"value": "tarzan"
+						},
+						{
+							"key": "apikey",
+							"value": "fc4a9f79\n"
+						}
+					]
+				},
+				"description": "Postman para consumir directamente el  API http://www.omdbapi.com/"
+			},
+			"response": []
+		},
+		{
+			"name": "0_PUT_GetToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"fercortes\",\r\n    \"password\":\"12345\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:666/service-movies/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"service-movies",
+						"login"
+					]
+				},
+				"description": "Consumir Rest WS que devuelve un token para un usuario valido (que exista en la base de datos H2 de usuarios)\r\nPor tanto , se requiere tener corriendo la aplicación service-users y movies\r\nMovies contiene al servicio que retorna el JWT y por dentro usa el servicio service-users\r\nEsto lo realiza vía username\r\n</br>Users in database: \r\n<li>fernando</li>\r\n<li>admin</li>"
+			},
+			"response": []
+		},
+		{
+			"name": "1_GET_findByTitle_consume_apiOMDb unicamente",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1ODYwYjA1MjIxNDU0MDU5OWI0Y2VkNWE2MDYxNDI4MSIsInN1YiI6ImZlcmNvcnRlcyIsImlzcyI6IkhFQiBDYXJkIEFQSSB2MSIsImlhdCI6MTYwNDQyOTI0OH0.lmDiXv0PmlmmzWqvF0ojKNKOLaJDymVWCsaqIFhb8oo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/service-movies/movies/find/tarzan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"service-movies",
+						"movies",
+						"find",
+						"tarzan"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Busca una pelicula por el titulo consumiendo el API OMDb con un RestController en la aplicación Movies"
+			},
+			"response": []
+		},
+		{
+			"name": "2_GET_findByTitle_peliculas vistas (database)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1ODYwYjA1MjIxNDU0MDU5OWI0Y2VkNWE2MDYxNDI4MSIsInN1YiI6ImZlcmNvcnRlcyIsImlzcyI6IkhFQiBDYXJkIEFQSSB2MSIsImlhdCI6MTYwNDQyOTI0OH0.lmDiXv0PmlmmzWqvF0ojKNKOLaJDymVWCsaqIFhb8oo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:666/service-movies/movies/find-watched/tarzan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"service-movies",
+						"movies",
+						"find-watched",
+						"tarzan"
+					]
+				},
+				"description": "Busca una pelicula por el titulo, en la base de datos H2 de  peliculas vistas  y complementa la info consumiendo el APIOmdb, se retorna un DTO con alguna info, no toda la del APIOmdb"
+			},
+			"response": []
+		},
+		{
+			"name": "3_POST_SaveMovie",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1ODYwYjA1MjIxNDU0MDU5OWI0Y2VkNWE2MDYxNDI4MSIsInN1YiI6ImZlcmNvcnRlcyIsImlzcyI6IkhFQiBDYXJkIEFQSSB2MSIsImlhdCI6MTYwNDQyOTI0OH0.lmDiXv0PmlmmzWqvF0ojKNKOLaJDymVWCsaqIFhb8oo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"imdbID\": \"tt0120855\",\r\n    \"comments\": \"comentario\",\r\n    \"rating\": \"10\",\r\n    \"watchedDate\": \"2020-10-31T04:09:04.347+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:666/service-movies/movies/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"service-movies",
+						"movies",
+						"save"
+					]
+				},
+				"description": "CRUD de peliculas vistas: Guarda un Elemento"
+			},
+			"response": []
+		},
+		{
+			"name": "4_PUT_Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1ODYwYjA1MjIxNDU0MDU5OWI0Y2VkNWE2MDYxNDI4MSIsInN1YiI6ImZlcmNvcnRlcyIsImlzcyI6IkhFQiBDYXJkIEFQSSB2MSIsImlhdCI6MTYwNDQyOTI0OH0.lmDiXv0PmlmmzWqvF0ojKNKOLaJDymVWCsaqIFhb8oo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"imdbID\": \"tt0120855\",\r\n    \"comments\": \"comentario editado\",\r\n    \"rating\": \"calificacion editada\",\r\n    \"watchedDate\": \"2018-01-31T04:09:04.347+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:666/service-movies/movies/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"service-movies",
+						"movies",
+						"update"
+					]
+				},
+				"description": "CRUD de peliculas vistas: Actualiza un elemento existente en la H2 database"
+			},
+			"response": []
+		},
+		{
+			"name": "5_DELETE_byImdb",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1ODYwYjA1MjIxNDU0MDU5OWI0Y2VkNWE2MDYxNDI4MSIsInN1YiI6ImZlcmNvcnRlcyIsImlzcyI6IkhFQiBDYXJkIEFQSSB2MSIsImlhdCI6MTYwNDQyOTI0OH0.lmDiXv0PmlmmzWqvF0ojKNKOLaJDymVWCsaqIFhb8oo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/service-movies/movies/delete/tt0120855",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"service-movies",
+						"movies",
+						"delete",
+						"tt0120855"
+					]
+				},
+				"description": "CRUD de peliculas vistas: Elimina un Elemento existente en H2 database"
+			},
+			"response": []
+		},
+		{
+			"name": "6_GET_find_all_watched_movies",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1ODYwYjA1MjIxNDU0MDU5OWI0Y2VkNWE2MDYxNDI4MSIsInN1YiI6ImZlcmNvcnRlcyIsImlzcyI6IkhFQiBDYXJkIEFQSSB2MSIsImlhdCI6MTYwNDQyOTI0OH0.lmDiXv0PmlmmzWqvF0ojKNKOLaJDymVWCsaqIFhb8oo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:666/service-movies/movies/find-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"service-movies",
+						"movies",
+						"find-all"
+					]
+				},
+				"description": "Regresa todas las peliculas que se encuentran en base de datos H2 (las peliculas vistas) y complementa info consumiendo API OMDb"
+			},
+			"response": []
+		},
+		{
+			"name": "Test -api Users-findByUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users-repo/search/get-by-username?username=fercortes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users-repo",
+						"search",
+						"get-by-username"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "fercortes"
+						}
+					]
+				},
+				"description": "Para probar el API Rest de usuarios, solo consiste en un Repository Rest de Spring, para consumir los usuarios de H2 database\r\nLos unicos usuarios en base de datos son los siguientes:  \r\n<li>fernando</li>\r\n<li>admin</li>"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
